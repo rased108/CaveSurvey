@@ -17,8 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Logger;
 
 /**
  * Utility class to report application errors.
@@ -30,24 +32,21 @@ public class ErrorReporter {
     // where to report the errors
     private static final String REPORTS_SERVER_URL = "https://cavesurveyreports.herokuapp.com/errors";
 
-    private static LogCatDumpThread logsDumpThread;
+    private static LogHandler logHandler;
 
-    public static void startDebugSession() {
-        // start dump thread, it will clean existing logs
-        logsDumpThread = new LogCatDumpThread();
-        logsDumpThread.start();
+    public static void startDebugSession() throws FileNotFoundException {
+        logHandler = registerHandler();
     }
 
     public static String closeDebugSession() {
-        // stop dump thread
-        String logFile = logsDumpThread.stopCollection();
-        logsDumpThread = null;
-
+        // stop dump
+        String logFile = logHandler.getLogFile();
+        deRegisterHandler(logHandler);
         return logFile;
     }
 
     public static boolean isDebugRunning() {
-        return logsDumpThread != null;
+        return logHandler != null;
     }
 
     public static void reportToServer(String aMessage, String aLogFile) {
@@ -134,4 +133,17 @@ public class ErrorReporter {
 
         return report.toString();
     }
+
+    private static void deRegisterHandler(LogHandler aLogHandler) {
+        Logger globalLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        globalLogger.removeHandler(logHandler);
+        logHandler.close();
+    }
+
+    private static LogHandler registerHandler() throws FileNotFoundException {
+        LogHandler handler = new LogHandler();
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).addHandler(handler);
+        return handler;
+    }
+
 }

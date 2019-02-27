@@ -25,6 +25,7 @@ dependencies {
     implementation files('../CaveSurveyBoschGLM/binary/CaveSurveyBoschGLM.jar')
 
     androidTestImplementation 'junit:junit:4.12'
+    androidTestImplementation 'org.mockito:mockito-android:2.18.3'
     testImplementation 'junit:junit:4.12'
 }
 
