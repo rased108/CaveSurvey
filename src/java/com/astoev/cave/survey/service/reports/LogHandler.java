@@ -33,7 +33,13 @@ public class LogHandler extends Handler {
     public void publish(LogRecord aLogRecord) {
         try {
             StringBuilder msg = new StringBuilder();
-            msg.append(aLogRecord.getLevel());
+            msg.append(aLogRecord.getMillis())
+                    .append(" - ")
+                    .append(aLogRecord.getSourceClassName())
+                    .append("#")
+                    .append(aLogRecord.getSourceMethodName())
+                    .append(" - ")
+                    .append(aLogRecord.getMessage());
             out.write(msg.toString().getBytes());
         } catch (IOException aE) {
             Log.e(LOG_TAG_SERVICE, "Failed to write message", aE);

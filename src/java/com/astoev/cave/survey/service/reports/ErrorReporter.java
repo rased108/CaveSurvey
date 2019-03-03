@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
@@ -59,6 +60,7 @@ public class ErrorReporter {
         }
 
         Log.i(Constants.LOG_TAG_SERVICE, "Preparing report body");
+        Logger.getLogger(ErrorReporter.class.getName()).info("test");
 
         // collect data
         String content = null;
@@ -71,14 +73,14 @@ public class ErrorReporter {
 
         Log.i(Constants.LOG_TAG_SERVICE, "Will report : " + content);
 
-        // post
+     /*   // post
         try {
             NetworkUnil.postJSON(REPORTS_SERVER_URL, content);
             Log.i(Constants.LOG_TAG_SERVICE, "Report scheduled");
         } catch (Exception e) {
             Log.e(Constants.LOG_TAG_SERVICE, "Failed to talk to server", e);
             UIUtilities.showNotification(R.string.network_error);
-        }
+        }*/
 
     }
 
@@ -135,14 +137,23 @@ public class ErrorReporter {
     }
 
     private static void deRegisterHandler(LogHandler aLogHandler) {
-        Logger globalLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-        globalLogger.removeHandler(logHandler);
+//        Logger globalLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+//        globalLogger.removeHandler(logHandler);
+        LogManager.getLogManager().getLogger("").removeHandler(logHandler);
         logHandler.close();
     }
 
     private static LogHandler registerHandler() throws FileNotFoundException {
         LogHandler handler = new LogHandler();
-        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).addHandler(handler);
+//        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).addHandler(handler);
+        LogManager.getLogManager().reset();
+        Logger rootLogger = LogManager.getLogManager().getLogger("");
+        rootLogger.addHandler(handler);
+        Log.i("alabala", "portokala");
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).info("brr");
+
+        LogManager.getLogManager().getLogger("").info("taralala");
+
         return handler;
     }
 
