@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "736027937397",
+    "firebase_url": "https://cavesurvey-45806.firebaseio.com",
+    "project_id": "cavesurvey-45806",
+    "storage_bucket": "cavesurvey-45806.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736027937397:android:bf50060bd4ddd64e77c63c",
+        "android_client_info": {
+          "package_name": "com.astoev.cave.survey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736027937397-jvdfs4h6jtprdqajm4n6qfbsbtse4pjn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoFvYY7Kq0aMUdUt9MhxRABg1HDwOQ2EM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736027937397-jvdfs4h6jtprdqajm4n6qfbsbtse4pjn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
